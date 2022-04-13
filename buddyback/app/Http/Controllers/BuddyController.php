@@ -12,6 +12,23 @@ class BuddyController extends Controller
 
     public function LoginAction(Request $request){
 
+        if($request->name != ''){
+
+            $user_detl = UserModel::where('name',$request->name)->first();
+
+            if($request->password == $user_detl->password){
+                return response()->json(['status' => 200, 'msg' =>'User Login Successfully','user' => $user_detl]);
+            }
+            else{
+               return response()->json(['status' => 201, 'msg' =>'User Login Unsuccessfully']); 
+            }
+        }
+        else{
+            return response()->json(['status' => 201, 'msg' =>'User Does Not Exits']); 
+        }
+
+        
+
         
     }
 
